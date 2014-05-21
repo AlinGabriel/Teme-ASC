@@ -1,6 +1,18 @@
 Arhip Alin Gabriel 
 Tema 4 ASC
 
+Inainte de compilare trebuie incarcat compilatorul de cuda 
+nvcc folosind comanda:
+module load libraries/cuda-5.0 .
+
+Pentru compilare: 
+make
+Pentru rulare:
+./a.out nr  
+unde nr=numarul testului (1 .. 20) 
+./run_tests.sh
+rularea tuturor testelor
+
 Am pus si multe comentarii in cod.
 
 Detalii de implementare:
