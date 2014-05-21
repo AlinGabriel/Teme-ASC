@@ -1,3 +1,3 @@
-Arhitectura Sistemelor de Calcul
+Teme-ASC
 ========
 
