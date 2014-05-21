@@ -1,0 +1,117 @@
+Arhip Alin Gabriel 
+Tema 4 ASC
+
+Am pus si multe comentarii in cod.
+
+Detalii de implementare:
+Mi-am creat 2 functii ajutatoare:
+//Copie matrice de pe host pe device:
+void CopyToDeviceMatrix(Matrix Md, Matrix M)
+
+//Copie matrice de pe device pe host:
+void CopyToHostMatrix(Matrix M,Matrix Md) 
+
+	Pentru varianta non_shared a fost destul de simplu:
+	In mare parte am folosit pentru varianta pe CPU.
+
+	Pentru varianta shared:
+am creat alte 2 functii suplimentare:
+// obtine un element din matricea A la coord. row,col
+__device__ float GetElement(const Matrix A, int row, int col)	
+// Seteaza elementul dat "value" in matricea A la coord. row,col
+__device__ void SetElement(Matrix A, int row, int col, float value)
+	Am facut share la matricea kernel M si o submatrice din N 
+de [20][20] unde de fapt submatricea din N este de 16 pe 16 , restul 
+liniilor si coloanelor fiind iniatializate ori cu 0 atunci cand ma aflu 
+pe marginea matricii N ori cu 2 linii/coloane din blocurile vecine.
+	
+La o rulare a testelor obtin urmatorul output:
+[alin.arhip@dp-wn02 tema4-skel]$ ./run_tests.sh 
+-----------------
+Timp execuție kernel: 0.038000 ms
+Timp execuție kernel cu memorie partajată: 0.021000 ms
+Test global PASSED
+Test shared PASSED
+Timp execuție kernel: 0.039000 ms
+Timp execuție kernel cu memorie partajată: 0.023000 ms
+Test global PASSED
+Test shared PASSED
+Timp execuție kernel: 0.041000 ms
+Timp execuție kernel cu memorie partajată: 0.025000 ms
+Test global PASSED
+Test shared PASSED
+Timp execuție kernel: 0.045000 ms
+Timp execuție kernel cu memorie partajată: 0.028000 ms
+Test global PASSED
+Test shared PASSED
+Timp execuție kernel: 0.049000 ms
+Timp execuție kernel cu memorie partajată: 0.038000 ms
+Test global PASSED
+Test shared PASSED
+Timp execuție kernel: 0.070000 ms
+Timp execuție kernel cu memorie partajată: 0.055000 ms
+Test global PASSED
+Test shared PASSED
+Timp execuție kernel: 0.098000 ms
+Timp execuție kernel cu memorie partajată: 0.064000 ms
+Test global PASSED
+Test shared PASSED
+Timp execuție kernel: 0.085000 ms
+Timp execuție kernel cu memorie partajată: 0.087000 ms
+Test global PASSED
+Test shared PASSED
+Timp execuție kernel: 0.097000 ms
+Timp execuție kernel cu memorie partajată: 0.098000 ms
+Test global PASSED
+Test shared PASSED
+Timp execuție kernel: 0.119000 ms
+Timp execuție kernel cu memorie partajată: 0.121000 ms
+Test global PASSED
+Test shared PASSED
+Timp execuție kernel: 0.140000 ms
+Timp execuție kernel cu memorie partajată: 0.139000 ms
+Test global PASSED
+Test shared PASSED
+Timp execuție kernel: 0.163000 ms
+Timp execuție kernel cu memorie partajată: 0.161000 ms
+Test global PASSED
+Test shared PASSED
+Timp execuție kernel: 0.194000 ms
+Timp execuție kernel cu memorie partajată: 0.187000 ms
+Test global PASSED
+Test shared PASSED
+Timp execuție kernel: 0.213000 ms
+Timp execuție kernel cu memorie partajată: 0.214000 ms
+Test global PASSED
+Test shared PASSED
+Timp execuție kernel: 0.253000 ms
+Timp execuție kernel cu memorie partajată: 0.248000 ms
+Test global PASSED
+Test shared PASSED
+Timp execuție kernel: 0.284000 ms
+Timp execuție kernel cu memorie partajată: 0.274000 ms
+Test global PASSED
+Test shared PASSED
+Timp execuție kernel: 0.330000 ms
+Timp execuție kernel cu memorie partajată: 0.319000 ms
+Test global PASSED
+Test shared PASSED
+Timp execuție kernel: 0.367000 ms
+Timp execuție kernel cu memorie partajată: 0.352000 ms
+Test global PASSED
+Test shared PASSED
+Timp execuție kernel: 0.407000 ms
+Timp execuție kernel cu memorie partajată: 0.392000 ms
+Test global PASSED
+Test shared PASSED
+Timp execuție kernel: 0.486000 ms
+Timp execuție kernel cu memorie partajată: 0.464000 ms
+Test global PASSED
+Test shared PASSED
+-----------------
+
+Concluzii: desi trec toate testele pe ambele variante, diferenta 
+de performanta este mica , cred ca se datoreaza partajarii matricii M,
+care este aceeasi pe toata durata executiei, pentru ca desi am partajat 
+si blocuri din matricea N , in general pentru fiecare valoare din 
+alt bloc vom avea nevoie de alte blocuri.
