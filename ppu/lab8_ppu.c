@@ -52,11 +52,6 @@ void *ppu_pthread_function(void *thread_arg) {
 	pthread_exit(NULL);
 }
 
-/*
-void my_convert(struct block2* blocks,struct img* imagine,struct c_img* imag_comp) {
-
-}
-*/
 
 int main(int argc,char* argv[]) {
 	
